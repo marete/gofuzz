@@ -1,0 +1,14 @@
+package entities
+
+import "bytes"
+
+func Fuzz(data []byte) int {
+	r := bytes.NewBuffer(data)
+
+	_, err := openpgp.ReadKeyring(r)
+	if err != nil {
+		return 0
+	}
+
+	return 1
+}

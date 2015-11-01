@@ -1,0 +1,55 @@
+program hanged (timeout 10 seconds)
+
+SIGABRT: abort
+PC=0x40e3e2 m=0
+
+goroutine 1 [running]:
+runtime.mallocgc(0x10, 0x6d0a80, 0xc800000001, 0x8)
+	/tmp/go-fuzz-build502842000/src/runtime/malloc.go:677 +0x3f2 fp=0xc82003d678 sp=0xc82003d5a8
+runtime.newobject(0x6d0a80, 0xc820707140)
+	/tmp/go-fuzz-build502842000/src/runtime/malloc.go:760 +0x42 fp=0xc82003d6a0 sp=0xc82003d678
+runtime.convT2E(0x6d0a80, 0xc82003d700, 0x0, 0x0, 0x0)
+	/tmp/go-fuzz-build502842000/src/runtime/iface.go:138 +0xc9 fp=0xc82003d6c8 sp=0xc82003d6a0
+golang.org/x/crypto/openpgp/s2k.Iterated.func3(0xc82003d760, 0xc82003d860, 0x0)
+	/tmp/go-fuzz-build502842000/src/golang.org/x/crypto/openpgp/s2k/s2k.go:138 +0x95 fp=0xc82003d728 sp=0xc82003d6c8
+golang.org/x/crypto/openpgp/s2k.Iterated(0xc8204124e0, 0x18, 0x18, 0x7f6e768ca4c0, 0xc82001c180, 0xc820091ac0, 0x8, 0x8, 0xc820091100, 0x8, ...)
+	/tmp/go-fuzz-build502842000/src/golang.org/x/crypto/openpgp/s2k/s2k.go:138 +0x440 fp=0xc82003d808 sp=0xc82003d728
+golang.org/x/crypto/openpgp/s2k.Parse.func6(0xc8204124e0, 0x18, 0x18, 0xc820091ac0, 0x8, 0x8)
+	/tmp/go-fuzz-build502842000/src/golang.org/x/crypto/openpgp/s2k/s2k.go:195 +0x109 fp=0xc82003d898 sp=0xc82003d808
+golang.org/x/crypto/openpgp/packet.(*SymmetricKeyEncrypted).Decrypt(0xc820010ba0, 0xc820091ac0, 0x8, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0)
+	/tmp/go-fuzz-build502842000/src/golang.org/x/crypto/openpgp/packet/symmetric_key_encrypted.go:75 +0x11e fp=0xc82003d980 sp=0xc82003d898
+golang.org/x/crypto/openpgp.ReadMessage(0x7f6e768c5388, 0xc82004e770, 0x7f6e768c53b0, 0x8fcf08, 0xc820090cc0, 0x0, 0xc82011cd20, 0x0, 0x0)
+	/tmp/go-fuzz-build502842000/src/golang.org/x/crypto/openpgp/read.go:199 +0x10ad fp=0xc82003ddb0 sp=0xc82003d980
+github.com/marete/gofuzz/openpgp/symmetric-unsigned/fuzz.Fuzz(0x7f6e766c1000, 0x12, 0x200000, 0x3)
+	/tmp/go-fuzz-build502842000/src/github.com/marete/gofuzz/openpgp/symmetric-unsigned/fuzz/main.go:57 +0x1d1 fp=0xc82003dea0 sp=0xc82003ddb0
+github.com/dvyukov/go-fuzz/go-fuzz-dep.Main(0x7a3ba0)
+	/home/marebri/devel/go/src/github.com/dvyukov/go-fuzz/go-fuzz-dep/main.go:47 +0x14c fp=0xc82003df40 sp=0xc82003dea0
+main.main()
+	/tmp/go-fuzz-build502842000/src/go-fuzz-main/main.go:10 +0x23 fp=0xc82003df50 sp=0xc82003df40
+runtime.main()
+	/tmp/go-fuzz-build502842000/src/runtime/proc.go:111 +0x2b0 fp=0xc82003dfa0 sp=0xc82003df50
+runtime.goexit()
+	/tmp/go-fuzz-build502842000/src/runtime/asm_amd64.s:1696 +0x1 fp=0xc82003dfa8 sp=0xc82003dfa0
+
+rax    0xc820707160
+rbx    0x0
+rcx    0x7f6e76a71000
+rdx    0xc820707150
+rdi    0xc820707140
+rsi    0xc82003d6e0
+rbp    0x6bcba0
+rsp    0xc82003d5a8
+r8     0x10
+r9     0xc820091b10
+r10    0x7dffddd2
+r11    0x246
+r12    0x18be42f9
+r13    0xefdc06a2
+r14    0x4dd45c02
+r15    0x2361938f
+rip    0x40e3e2
+rflags 0x297
+cs     0x33
+fs     0x0
+gs     0x0
+exit status 2

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+trap "echo '*** Last command failed'; exit 1" ERR INT TERM QUIT
+
+COUNT=0
+
+for Z in 0 6; do
+    for COMPRESSION_ALGO in Uncompressed ZIP ZLIB BZIP2; do
+        for CIPHER in IDEA 3DES CAST5 BLOWFISH AES AES192 AES256 TWOFISH CAMELLIA128 CAMELLIA192 CAMELLIA256; do
+            for HASH in MD5 SHA1 RIPEMD160 SHA256 SHA384 SHA512 SHA224; do
+                for S2K_MODE in 0 1 3; do
+                    for S2K_COUNT in 1024; do
+                        for MDC_MODE in "--force-mdc" "--disable-mdc"; do
+                            echo "insecure" | gpg -v -z ${Z} \
+                                --passphrase-fd 0 --batch --yes --no-tty \
+                                --compression-algo ${COMPRESSION_ALGO} \
+                                --cipher-algo ${CIPHER} \
+                                --digest-algo ${HASH} \
+                                --s2k-mode ${S2K_MODE} \
+                                --s2k-count ${S2K_COUNT} \
+                                ${MDC_MODE} \
+                                -o corpus/`printf "%05d" $COUNT`.gpg \
+                                -c plain.txt 
+
+                            COUNT=$[$COUNT + 1]
+                         done
+                     done
+                 done
+             done
+          done
+     done
+done
+                            
