@@ -16,6 +16,7 @@ for Z in 0 6; do
                                 --compression-algo ${COMPRESSION_ALGO} \
                                 --cipher-algo ${CIPHER} \
                                 --digest-algo ${HASH} \
+                                --s2k-digest-algo ${HASH} \
                                 --s2k-mode ${S2K_MODE} \
                                 --s2k-count ${S2K_COUNT} \
                                 --default-key D5B89C4C \
